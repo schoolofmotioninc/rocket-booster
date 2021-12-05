@@ -1,7 +1,8 @@
 export interface UpstreamOptions {
   domain: string;
-  protocol?: 'http' | 'https';
+  protocol?: "http" | "https";
   port?: number;
   timeout?: number;
   weight?: number;
+  redirect?: "follow" | "error" | "manual";
 }

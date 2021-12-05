@@ -38,12 +38,14 @@ export const getURL = (
 
 export const sendRequest = async (
   request: Request,
-  timeout: number,
+  upstream: UpstreamOptions,
 ): Promise<Response> => {
+  const timeout = upstream.timeout || 10000;
+  const redirect = upstream.redirect || 'manual';
   const timeoutId = setTimeout(() => {
     throw new Error('Fetch Timeout');
   }, timeout);
-  const response = await fetch(request);
+  const response = await fetch(request, { redirect });
   clearTimeout(timeoutId);
   return response;
 };
@@ -58,7 +60,6 @@ export const useUpstream: Middleware = async (
     return;
   }
 
-  const timeout = upstream.timeout || 10000;
   const url = getURL(
     request.url,
     upstream,
@@ -71,7 +72,7 @@ export const useUpstream: Middleware = async (
 
   context.response = await sendRequest(
     upstreamRequest,
-    timeout,
+    upstream,
   );
 
   await next();
