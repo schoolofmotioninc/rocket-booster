@@ -1,6 +1,6 @@
 {
   "name": "rocket-booster",
-  "version": "1.4.2",
+  "version": "1.4.2s1",
   "description": "Serverless reverse proxy and load balancing library built for Cloudflare Workers.",
   "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
